@@ -1,0 +1,27 @@
+name: CI - Fuel Intelligence Web
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  just-compile-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Baixar o código do repositório
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar o Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: 3. Instalar dependências
+      run: npm ci
+
+    - name: 4. Rodar o Build (Validação do TypeScript)
+      run: npm run build
